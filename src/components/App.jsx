@@ -20,19 +20,19 @@ export class App extends Component {
     page: 1,
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_, prevState) {
     const prevName = prevState.inputValue;
     const nextName = this.state.inputValue;
     const prevPage = prevState.page;
     const nextPage = this.state.page;
 
     if (prevName !== nextName || prevPage < nextPage) {
-      this.setState({ loading: true });
+      this.setState({ loading: true});
 
       makeRequest(nextName, nextPage)
         .then(data => {
           if (data.hits.length === 0) {
-            this.setState({ loading: false, searchResult: [] });
+            this.setState({ loading: false, searchResult: []});
             toast.error(`Nothing was found for the query ${nextName}`);
             return;
           }
@@ -60,12 +60,12 @@ export class App extends Component {
   }
 
   handleFormSubmit = value => {
-    this.setState({ inputValue: value });
+    this.setState({ inputValue: value, page: 1, images: [] });
   };
 
   incrementPage = () => {
     this.setState(prevState => {
-      return { page: prevState.page + 1 };
+      return { page: prevState.page +1 };
     });
   };
 
